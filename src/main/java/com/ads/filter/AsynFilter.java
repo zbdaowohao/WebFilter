@@ -11,7 +11,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 //过滤器访问异步的servelet需要配置DispatcherType.ASYNC，开启asyncSupported
 @WebFilter(filterName="asynFilter",urlPatterns={"/asyncServlet"}, dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.ASYNC}, asyncSupported = true)
@@ -30,9 +29,7 @@ public class AsynFilter implements Filter {
 		System.out.println("End asynFilter doFilter ...");
 		//转发到前台页面
 		HttpServletRequest serRequest = (HttpServletRequest) request;
-		//serRequest.getRequestDispatcher("async.jsp").forward(request, response);
-		HttpServletResponse servletResponse = (HttpServletResponse) response;
-		servletResponse.sendRedirect("/async.jsp");
+		serRequest.getRequestDispatcher("async.jsp").forward(request, response);
 	}
 
 	@Override
